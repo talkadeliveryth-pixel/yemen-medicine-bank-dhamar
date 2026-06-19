@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بنك الدواء اليمني - فرع ذمار</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-top">
+                <div class="logo-section">
+                    <img src="logo.png" alt="شعار بنك الدواء" class="logo">
+                    <div class="header-text">
+                        <h1>بنك الدواء اليمني</h1>
+                        <p>فرع ذمار</p>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="navbar">
+            <button class="nav-btn active" data-page="dashboard">لوحة التحكم</button>
+            <button class="nav-btn" data-page="add-patient">إضافة مريض</button>
+            <button class="nav-btn" data-page="patients-list">قائمة المرضى</button>
+            <button class="nav-btn" data-page="search">البحث</button>
+            <button class="nav-btn" data-page="reports">التقارير</button>
+            <button class="nav-btn" data-page="import-export">استيراد/تصدير</button>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Dashboard Page -->
+            <div id="dashboard" class="page active">
+                <div class="page-header">
+                    <h2>لوحة التحكم</h2>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <h3>إجمالي المرضى</h3>
+                        <p class="stat-number" id="total-patients">0</p>
+                    </div>
+                    <div class="stat-card">
+                        <h3>إجمالي الأدوية</h3>
+                        <p class="stat-number" id="total-medicines">0</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Add Patient Page -->
+            <div id="add-patient" class="page">
+                <div class="page-header">
+                    <h2>إضافة مريض جديد</h2>
+                </div>
+                <form id="patient-form" class="form-container">
+                    <div class="form-section">
+                        <h3>البيانات الشخصية</h3>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>رقم المريض *</label>
+                                <input type="text" name="patient_number" required>
+                            </div>
+                            <div class="form-group">
+                                <label>اسم المريض *</label>
+                                <input type="text" name="patient_name" required>
+                            </div>
+                            <div class="form-group">
+                                <label>الجنس</label>
+                                <select name="gender">
+                                    <option value="">اختر</option>
+                                    <option value="ذكر">ذكر</option>
+                                    <option value="أنثى">أنثى</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>العمر</label>
+                                <input type="number" name="age">
+                            </div>
+                            <div class="form-group">
+                                <label>العنوان</label>
+                                <input type="text" name="address">
+                            </div>
+                            <div class="form-group">
+                                <label>رقم التواصل</label>
+                                <input type="tel" name="phone">
+                            </div>
+                            <div class="form-group">
+                                <label>نوع البطاقة</label>
+                                <select name="card_type">
+                                    <option value="">اختر</option>
+                                    <option value="بطاقة رقم">بطاقة رقم</option>
+                                    <option value="جواز سفر">جواز سفر</option>
+                                    <option value="رخصة قيادة">رخصة قيادة</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>رقم البطاقة</label>
+                                <input type="text" name="card_number">
+                            </div>
+                            <div class="form-group">
+                                <label>تاريخ الصرف</label>
+                                <input type="date" name="dispensing_date">
+                            </div>
+                            <div class="form-group full-width">
+                                <label>وصف المرض</label>
+                                <textarea name="disease_description" rows="3"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Medicines Section -->
+                    <div class="form-section">
+                        <h3>الأدوية المصروفة</h3>
+                        <div id="medicines-container">
+                            <div class="medicine-row">
+                                <div class="form-group">
+                                    <label>اسم الدواء التجاري</label>
+                                    <input type="text" class="medicine-name" placeholder="e.g., Paracetamol">
+                                </div>
+                                <div class="form-group">
+                                    <label>الوحدة</label>
+                                    <input type="text" class="medicine-unit" placeholder="e.g., Tab/ml">
+                                </div>
+                                <div class="form-group">
+                                    <label>الكمية</label>
+                                    <input type="number" class="medicine-quantity">
+                                </div>
+                                <div class="form-group">
+                                    <label>تاريخ الانتهاء</label>
+                                    <input type="date" class="medicine-expiry">
+                                </div>
+                                <button type="button" class="btn btn-danger btn-small remove-medicine" style="display:none;">حذف</button>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-secondary" id="add-medicine-btn">إضافة دواء</button>
+                    </div>
+
+                    <!-- Receiver Section -->
+                    <div class="form-section">
+                        <h3>بيانات مستلم الدواء (إن لم يكن المريض)</h3>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>اسم المستلم</label>
+                                <input type="text" name="receiver_name">
+                            </div>
+                            <div class="form-group">
+                                <label>صلة القرابة</label>
+                                <select name="receiver_relationship">
+                                    <option value="">اختر</option>
+                                    <option value="والد">والد</option>
+                                    <option value="والدة">والدة</option>
+                                    <option value="زوج">زوج</option>
+                                    <option value="زوجة">زوجة</option>
+                                    <option value="أخ">أخ</option>
+                                    <option value="أخت">أخت</option>
+                                    <option value="ابن">ابن</option>
+                                    <option value="ابنة">ابنة</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>نوع البطاقة</label>
+                                <select name="receiver_card_type">
+                                    <option value="">اختر</option>
+                                    <option value="بطاقة رقم">بطاقة رقم</option>
+                                    <option value="جواز سفر">جواز سفر</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>رقم البطاقة</label>
+                                <input type="text" name="receiver_card_number">
+                            </div>
+                            <div class="form-group">
+                                <label>رقم التواصل</label>
+                                <input type="tel" name="receiver_phone">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Documents Section -->
+                    <div class="form-section">
+                        <h3>الوثائق المتوفرة</h3>
+                        <div class="checkbox-group">
+                            <label><input type="checkbox" name="id_card"> بطاقة الهوية</label>
+                            <label><input type="checkbox" name="prescription"> روشتة الدواء</label>
+                            <label><input type="checkbox" name="examination_form"> ورقة المعاينة</label>
+                        </div>
+                    </div>
+
+                    <!-- Notes Section -->
+                    <div class="form-section">
+                        <h3>ملاحظات</h3>
+                        <textarea name="notes" rows="3" placeholder="أي ملاحظات إضافية..."></textarea>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">حفظ البيانات</button>
+                        <button type="reset" class="btn btn-secondary">إعادة تعيين</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Patients List Page -->
+            <div id="patients-list" class="page">
+                <div class="page-header">
+                    <h2>قائمة المرضى</h2>
+                </div>
+                <div class="table-responsive">
+                    <table class="patients-table">
+                        <thead>
+                            <tr>
+                                <th>رقم المريض</th>
+                                <th>اسم المريض</th>
+                                <th>الجنس</th>
+                                <th>العمر</th>
+                                <th>رقم التواصل</th>
+                                <th>تاريخ الصرف</th>
+                                <th>الأدوية</th>
+                                <th>الإجراءات</th>
+                            </tr>
+                        </thead>
+                        <tbody id="patients-tbody">
+                            <!-- Data will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Search Page -->
+            <div id="search" class="page">
+                <div class="page-header">
+                    <h2>البحث عن مريض</h2>
+                </div>
+                <div class="search-container">
+                    <input type="text" id="search-input" placeholder="ابحث باسم المريض أو رقم البطاقة...">
+                    <button class="btn btn-primary" id="search-btn">بحث</button>
+                </div>
+                <div id="search-results" class="search-results">
+                    <!-- Search results will appear here -->
+                </div>
+            </div>
+
+            <!-- Reports Page -->
+            <div id="reports" class="page">
+                <div class="page-header">
+                    <h2>التقارير والإحصائيات</h2>
+                </div>
+                <div class="reports-container">
+                    <div class="report-section">
+                        <h3>إحصائيات عامة</h3>
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <h4>المرضى</h4>
+                                <p id="report-patients">0</p>
+                            </div>
+                            <div class="stat-card">
+                                <h4>الأدوية</h4>
+                                <p id="report-medicines">0</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Import/Export Page -->
+            <div id="import-export" class="page">
+                <div class="page-header">
+                    <h2>استيراد / تصدير البيانات</h2>
+                </div>
+                <div class="import-export-container">
+                    <div class="section">
+                        <h3>تصدير البيانات</h3>
+                        <p>قم بتصدير جميع البيانات إلى ملف Excel</p>
+                        <button class="btn btn-primary" id="export-btn">تحميل Excel</button>
+                    </div>
+                    <div class="section">
+                        <h3>استيراد البيانات</h3>
+                        <p>قم باستيراد بيانات من ملف Excel</p>
+                        <input type="file" id="import-file" accept=".xlsx,.xls">
+                        <button class="btn btn-primary" id="import-btn">استيراد</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modal for viewing patient details -->
+    <div id="patient-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="patient-details">
+                <!-- Patient details will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
