@@ -1,24 +1,59 @@
+# Dependencies
 node_modules/
-*.db
-*.sqlite
-*.sqlite3
+npm-debug.log
+npm-error.log
+yarn-error.log
+package-lock.json
+
+# Environment variables
 .env
 .env.local
 .env.*.local
-dist/
-build/
-uploads/
-exports/
-.DS_Store
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-.idea/
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+medicine_bank.db
+
+# IDE
 .vscode/
+.idea/
 *.swp
 *.swo
 *~
-.project
-.classpath
-*.iml
+.DS_Store
+
+# Build
+dist/
+build/
+*.log
+
+# Temporary files
+temp/
+tmp/
+*.tmp
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Uploads
+uploads/
+uploads/temp/
+
+# Backups
+*.bak
+*.backup
+
+# System files
+.env.production
+.env.staging
+
+# Cache
+.cache/
+*.cache
+
+# Node modules lock
+package-lock.json
+yarn.lock
